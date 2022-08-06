@@ -1,6 +1,6 @@
-# ireo
+# Ireo
 
-A new Flutter project.
+An App to help students set daily tasks, deadlines and study with the help of a pomodoro timer.
 
 ## Getting Started
 
