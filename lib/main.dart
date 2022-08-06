@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'Pages/home.dart';
 import 'Pages/login.dart';
+import 'Utilities/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,11 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.nunito().fontFamily,
       ),
       initialRoute: "/",
-      routes: {"/": (context) => Login(), "/home": (context) => Home()},
+      routes: {
+        "/": (context) => Login(),
+        Routes.HomePath: (context) => Home(),
+        Routes.LoginPath: (context) => Login()
+      },
     );
   }
 }
