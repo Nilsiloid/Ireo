@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ireo/Pages/home.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ireo/Pages/wrapper.dart';
 
 import 'Pages/home.dart';
 import 'Pages/login.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/": (context) => Login(),
+        "/": (context) => Wrapper(),
         Routes.HomePath: (context) => Home(),
         Routes.LoginPath: (context) => Login()
       },
