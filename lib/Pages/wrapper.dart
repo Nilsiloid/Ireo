@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:ireo/Authentication/authenticate.dart';
-import 'package:ireo/Pages/home.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);

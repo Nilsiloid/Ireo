@@ -2,7 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ireo/Authentication/auth.dart';
+import 'package:ireo/Authentication/g_auth.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final AuthService _authService = AuthService();
+  // final GAuthService _authService = GAuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +27,21 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: ElevatedButton(
-          child: Text("Sign in Anonymously"),
-          onPressed: () async {
-            dynamic result = await _authService.signInAnonymously();
-            if (result == null) {
-              print("error signing in.");
-            } else {
-              print("Signed in!");
-              print(result);
-            }
-          },
-        ),
+            child: Text("Sign in using Google"),
+            // onPressed: () async {
+            //   dynamic result = await _authService.googleLogIn();
+            //   if (result == null) {
+            //     print("error signing in.");
+            //   } else {
+            //     print("Signed in!");
+            //     print(result);
+            //   }
+            // },
+            onPressed: () {
+              final provider =
+                  Provider.of<GAuthService>(context, listen: false);
+              provider.googleLogIn();
+            }),
       ),
     );
   }
