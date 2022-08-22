@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

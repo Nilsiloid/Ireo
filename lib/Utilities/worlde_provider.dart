@@ -13,7 +13,24 @@ class Wordle {
     "BRAIN",
     "PLANE",
     "EARTH",
-    "ROBOT"
+    "ROBOT",
+    "REACH",
+    "PEACE",
+    "BRAKE",
+    "CRANK",
+    "PRANK",
+    "ROAST",
+    "TOAST",
+    "CAMEL",
+    "HUNCH",
+    "MUNCH",
+    "RANCH",
+    "FLAME",
+    "CROAK",
+    "CRUEL",
+    "DEATH",
+    "LEACH",
+    "FETCH"
   ];
   static bool gameEnd = false;
   static List<Letter> wordleRow = List.generate(5, (index) => Letter("", 0));

@@ -131,13 +131,15 @@ class _WordleKeyboardState extends State<WordleKeyboard> {
                           }
                         }
                       }
+                      widget.game.rowID++;
+                      widget.game.letterID = 0;
                     }
-                    widget.game.rowID++;
-                    widget.game.letterID = 0;
+                  } else {
+                    Wordle.game_msg =
+                        "The word does not exist! Input another word...";
+                    Text(Wordle.game_msg,
+                        style: TextStyle(color: Colors.white));
                   }
-                } else {
-                  Wordle.game_msg =
-                      "The word does not exist! Input another word...";
                 }
               } else {
                 if (widget.game.letterID < 5) {

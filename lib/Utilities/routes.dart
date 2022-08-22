@@ -3,4 +3,5 @@
 class Routes {
   static String LoginPath = "/wrapper";
   static String HomePath = "/home";
+  static String WordlePath = '/wordle';
 }

@@ -34,89 +34,88 @@ class _LoginState extends State<Login> {
     return Material(
         child: SingleChildScrollView(
             child: Form(
-              key: _formkey,
-              child: Column(children: [
-                SizedBox(
-                  height: 50,
+      key: _formkey,
+      child: Column(children: [
+        SizedBox(
+          height: 50,
+        ),
+        Text(
+          "Hello!",
+          style: TextStyle(fontSize: 25),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          "Welcome to Ireo!",
+          style: TextStyle(fontSize: 25),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Enter Username",
+                  labelText: "Username",
                 ),
-                Text(
-                  "Hello!",
-                  style: TextStyle(fontSize: 25),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Invalid Username";
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "Enter Password",
+                  labelText: "Password",
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Welcome to Ireo!",
-                  style: TextStyle(fontSize: 25),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 30.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "Enter Username",
-                          labelText: "Username",
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Invalid Username";
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: "Enter Password",
-                          labelText: "Password",
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Invalid Password";
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Material(
-                        color: Colors.lightBlue,
-                        borderRadius: BorderRadius.circular(5),
-                        child: InkWell(
-                          onTap: () => moveHome(context),
-                          child: AnimatedContainer(
-                            duration: Duration(seconds: 1),
-                            width: pressed ? 50 : 150,
-                            height: 40,
-                            alignment: Alignment.center,
-                            child: pressed
-                                ? Icon(color: Colors.black, Icons.done)
-                                : Text(
-                                    "Login",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Invalid Password";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Material(
+                color: Colors.lightBlue,
+                borderRadius: BorderRadius.circular(5),
+                child: InkWell(
+                  onTap: () => moveHome(context),
+                  child: AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                    width: pressed ? 50 : 150,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: pressed
+                        ? Icon(color: Colors.black, Icons.done)
+                        : Text(
+                            "Login",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                      ),
-                      // ElevatedButton(
-                      //   child: Text("Login"),
-                      //   style: TextButton.styleFrom(minimumSize: Size(150, 40)),
-                      //   onPressed: () {
-                      //     Navigator.pushNamed(context, Routes.HomePath);
-                      //   },
-                      // ),
-                    ],
                   ),
                 ),
-              ]),
-            )));
+              ),
+              // ElevatedButton(
+              //   child: Text("Login"),
+              //   style: TextButton.styleFrom(minimumSize: Size(150, 40)),
+              //   onPressed: () {
+              //     Navigator.pushNamed(context, Routes.HomePath);
+              //   },
+              // ),
+            ],
+          ),
+        ),
+      ]),
+    )));
   }
 }
