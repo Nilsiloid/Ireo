@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element
 
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ireo/Authentication/email_auth.dart';
+import 'package:ireo/main.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -33,60 +37,77 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      appBar: AppBar(
-        elevation: 0.0,
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        title: Text(
-          "IIIT-B",
-          style: TextStyle(fontSize: 25.0),
-        ),
-        centerTitle: true,
-      ),
-      body: Container(
-        child: Container(
-          height: 800,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
+        drawer: Drawer(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+                onPressed: () {
+                  context.read<AuthenticationService>().signOut();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AuthWrapper(index: 0)));
+                },
+                child: Text("Sign Out"))
+          ],
+        )),
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          title: Text(
+            "IIIT-B",
+            style: TextStyle(fontSize: 25.0),
           ),
-          child: ListView(
+          centerTitle: true,
+        ),
+        body: Container(
+          child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 30, left: 30),
-                child: Text(
-                  "Tasks",
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w600),
+              Container(
+                height: 800,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30, left: 30),
+                      child: Text(
+                        "Tasks",
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 30, left: 30),
+                        child: Row(children: [
+                          _tasks(
+                              color: Theme.of(context).colorScheme.secondary,
+                              title: "Important",
+                              subtitle: "Maths Assignment"),
+                          _tasks(
+                              color: Theme.of(context).colorScheme.secondary,
+                              title: "Urgent",
+                              subtitle: "Physics Assignment"),
+                        ]),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 30, left: 30),
-                  child: Row(children: [
-                    _tasks(
-                        color: Theme.of(context).colorScheme.secondary,
-                        title: "Important",
-                        subtitle: "Maths Assignment"),
-                    _tasks(
-                        color: Theme.of(context).colorScheme.secondary,
-                        title: "Urgent",
-                        subtitle: "Physics Assignment"),
-                  ]),
-                ),
-              )
             ],
           ),
-        ),
-      ),
-      drawer: Drawer(),
-    );
+        ));
   }
 }

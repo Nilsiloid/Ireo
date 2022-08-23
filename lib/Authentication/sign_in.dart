@@ -15,24 +15,39 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-
   String name = "";
-  bool pressed = false;
+  bool pressedLog = false, pressedReg = false;
   final _formkey = GlobalKey<FormState>();
 
   moveHome(BuildContext context) async {
     if (_formkey.currentState!.validate()) {
       setState(() {
-        pressed = true;
+        pressedLog = true;
       });
       await Future.delayed(Duration(seconds: 1));
-      await Navigator.pushNamed(context, Routes.HomePath);
+      // await Navigator.pushNamed(context, Routes.HomePath);
       setState(() {
-        pressed = false;
+        pressedLog = false;
+      });
+    }
+  }
+
+  moveReg(BuildContext context) async {
+    if (_formkey.currentState!.validate()) {
+      setState(() {
+        pressedReg = true;
+      });
+      await Future.delayed(Duration(seconds: 1));
+      // await Navigator.pushNamed(context, Routes.HomePath);
+      setState(() {
+        pressedReg = false;
       });
     }
   }
   // final GAuthService _authService = GAuthService();
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +57,7 @@ class _SignInState extends State<SignIn> {
       key: _formkey,
       child: Column(children: [
         SizedBox(
-          height: 50,
+          height: 100,
         ),
         Text(
           "Hello!",
@@ -59,7 +74,11 @@ class _SignInState extends State<SignIn> {
           padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
           child: Column(
             children: [
+              SizedBox(
+                height: 40.0,
+              ),
               TextFormField(
+                controller: emailController,
                 decoration: InputDecoration(
                   hintText: "Enter Username",
                   labelText: "Username",
@@ -72,6 +91,7 @@ class _SignInState extends State<SignIn> {
                 },
               ),
               TextFormField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: "Enter Password",
@@ -91,16 +111,52 @@ class _SignInState extends State<SignIn> {
                 color: Colors.lightBlue,
                 borderRadius: BorderRadius.circular(5),
                 child: InkWell(
-                  onTap: () => moveHome(context),
+                  onTap: () {
+                    moveHome(context);
+                    context.read<AuthenticationService>().signIn(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim());
+                  },
                   child: AnimatedContainer(
                     duration: Duration(seconds: 1),
-                      width: pressed ? 50 : 150,
+                    width: pressedLog ? 50 : 150,
                     height: 40,
                     alignment: Alignment.center,
-                    child: pressed
-                        ? Icon(color: Colors.black, Icons.done)
+                    child: pressedLog
+                        ? Icon(color: Colors.black, Icons.android_sharp)
                         : Text(
                             "Login",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              Material(
+                color: Colors.lightBlue,
+                borderRadius: BorderRadius.circular(5),
+                child: InkWell(
+                  onTap: () {
+                    moveReg(context);
+                    context.read<AuthenticationService>().signUp(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim());
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                    width: pressedReg ? 50 : 150,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: pressedReg
+                        ? Icon(color: Colors.black, Icons.done)
+                        : Text(
+                            "Register",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
