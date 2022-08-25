@@ -7,4 +7,5 @@ class Routes {
   static String RegisterPath = "/register";
   static String PomodoroPath = "/pomodoro";
   static String PomodoroMainPath = "/pomodoromain";
+  static String TasksPath = "/tasks";
 }

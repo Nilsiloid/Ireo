@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10.0),
       padding: EdgeInsets.only(left: 20),
-      height: 70,
+      height: 80,
       width: 200,
       decoration: BoxDecoration(
         color: color,
@@ -26,9 +26,13 @@ class Home extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title, style: TextStyle(color: Colors.white, fontSize: 20.0)),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text(title,
+                style: TextStyle(color: Colors.white, fontSize: 17.0)),
+          ),
           SizedBox(
-            height: 5.0,
+            height: 2.0,
           ),
           Text(subtitle, style: TextStyle(color: Colors.white, fontSize: 12.0)),
         ],
