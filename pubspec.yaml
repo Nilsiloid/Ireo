@@ -47,6 +47,7 @@ dependencies:
   password_strength: ^0.2.0
   percent_indicator: ^4.2.2
   audioplayers: ^1.0.1
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:

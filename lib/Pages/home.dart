@@ -16,8 +16,8 @@ class Home extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10.0),
       padding: EdgeInsets.only(left: 20),
-      height: 120,
-      width: 240,
+      height: 70,
+      width: 200,
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(15.0),
@@ -30,7 +30,7 @@ class Home extends StatelessWidget {
           SizedBox(
             height: 5.0,
           ),
-          Text(subtitle, style: TextStyle(color: Colors.white, fontSize: 15.0)),
+          Text(subtitle, style: TextStyle(color: Colors.white, fontSize: 12.0)),
         ],
       ),
     );
@@ -39,104 +39,95 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      drawer: Drawer(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+              onPressed: () {
+                context.read<AuthenticationService>().signOut();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AuthWrapper(index: 0)));
+              },
+              child: Text("Sign Out"))
+        ],
+      )),
+      appBar: AppBar(
+        elevation: 0.0,
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        drawer: Drawer(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-                onPressed: () {
-                  context.read<AuthenticationService>().signOut();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AuthWrapper(index: 0)));
-                },
-                child: Text("Sign Out"))
-          ],
-        )),
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          title: Text(
-            "IIIT-B",
-            style: TextStyle(fontSize: 25.0),
-          ),
-          centerTitle: true,
+        title: Text(
+          "IIIT-B",
+          style: TextStyle(fontSize: 15.0),
         ),
-        body: Container(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                Container(
-                  height: 250,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                  ),
-                  child: ListView(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 30, left: 30),
-                        child: Text(
-                          "Tasks",
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 30, left: 30),
-                          child: Row(children: [
-                            _tasks(
-                                color: Theme.of(context).colorScheme.secondary,
-                                title: "Important",
-                                subtitle: "Maths Assignment"),
-                            _tasks(
-                                color: Theme.of(context).colorScheme.secondary,
-                                title: "Urgent",
-                                subtitle: "Physics Assignment"),
-                          ]),
-                        ),
-                      )
-                    ],
+        centerTitle: true,
+      ),
+      body: Container(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              Container(
+                height: 250,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
                 ),
-                Container(
-                  height: 250,
-                  width: double.infinity,
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30, left: 30),
+                      child: Text(
+                        "Tasks",
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 30, left: 30),
+                        child: Row(children: [
+                          _tasks(
+                              color: Theme.of(context).colorScheme.secondary,
+                              title: "Important",
+                              subtitle: "Maths Assignment"),
+                          _tasks(
+                              color: Theme.of(context).colorScheme.secondary,
+                              title: "Urgent",
+                              subtitle: "Physics Assignment"),
+                        ]),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                  height: 50,
+                  width: 200,
                   decoration: BoxDecoration(
                     color: Colors.white,
                   ),
                   child: ElevatedButton(
                     onPressed: () async {
-                      await Navigator.pushNamed(
-                          context, Routes.PomodoroMainPath);
+                      Navigator.pushNamed(context, Routes.PomodoroPath);
                     },
-                    // style: ButtonStyle(
-                    //   backgroundColor: Colors.black,
-                    // ),
-                    child: Text("Pomodoro Study!"),
-                  ),
-                ),
-                Container(
-                  height: 250,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                )
-              ],
-            ),
+                    child: Text(
+                      "Pomodoro Study",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  )),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -2,8 +2,10 @@
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:ireo/Pages/home.dart';
 import 'package:ireo/Pomodoro/constants.dart';
 import 'package:ireo/Pomodoro/pomodoro_icons.dart';
+import 'package:ireo/Utilities/routes.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:ireo/Pomodoro/custom_buttons.dart';
 import 'package:ireo/models/pomodoro_status.dart';
@@ -32,7 +34,7 @@ class _PomodoroState extends State<Pomodoro> {
   String button = _start;
   PomodoroStatus pomodoroStatus = PomodoroStatus.pausedPomodoro;
 
-  Timer? timer;
+  Timer? _timer;
   int pomodoroNum = 0;
 
   @override
@@ -56,15 +58,31 @@ class _PomodoroState extends State<Pomodoro> {
           child: Center(
         child: Column(
           children: [
-            Text(
-              "Pomodoro Set: $pomodoroNum",
-              style: TextStyle(fontSize: 25, color: Colors.black),
-            ),
+            Row(children: [
+              SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.pushNamed(context, Routes.HomePath);
+                },
+                child: Text("Back", style: TextStyle(fontSize: 15)),
+              ),
+              SizedBox(
+                width: 30,
+              ),
+              Center(
+                child: Text(
+                  "Pomodoro Set: $pomodoroNum",
+                  style: TextStyle(fontSize: 25, color: Colors.black),
+                ),
+              )
+            ]),
             Expanded(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              CircularPercentIndicator(
+                CircularPercentIndicator(
                   radius: 100.0,
                   lineWidth: 15.0,
                   percent: _percentageSetCompleted(),
@@ -80,8 +98,8 @@ class _PomodoroState extends State<Pomodoro> {
                   height: 10.0,
                 ),
                 Text(
-                  "LOL",
-                  // statusDescription[pomodoroStatus],
+                  // "LOL",
+                  statusDescription[pomodoroStatus]!,
                   style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(
@@ -176,7 +194,7 @@ class _PomodoroState extends State<Pomodoro> {
     pomodoroStatus = PomodoroStatus.runningPomodoro;
 
     _stopTimer();
-    timer = Timer.periodic(
+    _timer = Timer.periodic(
         Duration(seconds: 1),
         (timer) => {
               if (remainingTime > 0)
@@ -190,8 +208,8 @@ class _PomodoroState extends State<Pomodoro> {
                 {
                   // play sound
                   pomodoroNum++,
-                  // _stopTimer(),
-                  timer.cancel(),
+                  _stopTimer(),
+                  // timer.cancel(),
                   if (pomodoroNum % pomodoroTotal == 0)
                     {
                       pomodoroStatus = PomodoroStatus.pausedLongBreak,
@@ -245,32 +263,27 @@ class _PomodoroState extends State<Pomodoro> {
         ? PomodoroStatus.runningLongBreak
         : PomodoroStatus.runningShortBreak;
 
-    // _stopTimer();
-    timer = Timer.periodic(
-        Duration(seconds: 1),
-        (timer) => {
-              debugPrint("remainingtime = $remainingTime"),
-              if (remainingTime > 0)
-                {
-                  // debugPrint("remainingtime = $remainingTime"),
-                  setState(() {
-                    remainingTime--;
-                    button = _pauseBreak;
-                  }),
-                }
-              else
-                {
-                  _soundForStartAndEnd(),
-                  _stopTimer(),
-                  timer.cancel(),
-                  pomodoroStatus = PomodoroStatus.pausedPomodoro,
-                  setState(() {
-                    remainingTime = pomodoroTotalTime;
-                    button = _start;
-                    _startPomodoroCounter();
-                  }),
-                }
-            });
+    _stopTimer();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      debugPrint("remainingtime = $remainingTime");
+      if (remainingTime > 0) {
+        // debugPrint("remainingtime = $remainingTime"),
+        setState(() {
+          remainingTime--;
+          button = _pauseBreak;
+        });
+      } else {
+        _soundForStartAndEnd();
+        _stopTimer();
+        // timer.cancel();
+        pomodoroStatus = PomodoroStatus.pausedPomodoro;
+        setState(() {
+          remainingTime = pomodoroTotalTime;
+          button = _start;
+          _startPomodoroCounter();
+        });
+      }
+    });
   }
 
   _pauseBreakTimer() {
@@ -302,8 +315,8 @@ class _PomodoroState extends State<Pomodoro> {
 
   _stopTimer() {
     // debugPrint("timer = $timer");
-    if (timer != null) {
-      timer?.cancel();
+    if (_timer != null) {
+      _timer?.cancel();
     }
   }
 

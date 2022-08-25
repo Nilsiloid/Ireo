@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
               // "/": (context) => Wrapper(),
               // "/": (context) => SignIn(),
               // "/": (context) => AuthWrapper(),
-              "/": (context) => Pomodoro(),
+              "/": (context) => Home(),
               Routes.WordlePath: (context) => GameScreen(),
               Routes.HomePath: (context) => Home(),
               Routes.LoginPath: (context) => SignIn(),
