@@ -5,4 +5,6 @@ class Routes {
   static String HomePath = "/home";
   static String WordlePath = '/wordle';
   static String RegisterPath = "/register";
+  static String PomodoroPath = "/pomodoro";
+  static String PomodoroMainPath = "/pomodoromain";
 }

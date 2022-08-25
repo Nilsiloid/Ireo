@@ -8,7 +8,9 @@ import 'package:ireo/Authentication/g_auth.dart';
 import 'package:ireo/Authentication/sign_in.dart';
 import 'package:ireo/Pages/home.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ireo/Pages/pomodoro.dart';
 import 'package:ireo/Pages/wrapper.dart';
+import 'package:ireo/Pomodoro/pomodoro_main.dart';
 import 'package:provider/provider.dart';
 
 import 'Pages/home.dart';
@@ -44,15 +46,17 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               fontFamily: GoogleFonts.nunito().fontFamily,
             ),
-            home: AuthWrapper(index: -1),
-            // initialRoute: "/",
+            // home: AuthWrapper(index: -1),
+            initialRoute: "/",
             routes: {
               // "/": (context) => Wrapper(),
               // "/": (context) => SignIn(),
               // "/": (context) => AuthWrapper(),
+              "/": (context) => Pomodoro(),
               Routes.WordlePath: (context) => GameScreen(),
               Routes.HomePath: (context) => Home(),
               Routes.LoginPath: (context) => SignIn(),
+              Routes.PomodoroPath: (context) => Pomodoro()
               // Routes.RegisterPath:(context) => Register()
             }));
   }
