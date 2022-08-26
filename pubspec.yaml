@@ -48,6 +48,8 @@ dependencies:
   percent_indicator: ^4.2.2
   audioplayers: ^1.0.1
   fluttertoast: ^8.0.9
+  sqflite: ^2.0.3+1
+  path: ^1.8.1
 
 dev_dependencies:
   flutter_test:

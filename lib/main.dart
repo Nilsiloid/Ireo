@@ -47,12 +47,8 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               fontFamily: GoogleFonts.nunito().fontFamily,
             ),
-            // home: AuthWrapper(index: -1),
             initialRoute: "/",
             routes: {
-              // "/": (context) => Wrapper(),
-              // "/": (context) => SignIn(),
-              // "/": (context) => AuthWrapper(),
               "/": (context) => Tasks(),
               Routes.WordlePath: (context) => GameScreen(),
               Routes.HomePath: (context) => Home(),
@@ -88,6 +84,11 @@ class AuthWrapper extends StatelessWidget {
     // return Login();
   }
 }
+
+
+
+
+
   // @override
   // Widget build(BuildContext context) => ChangeNotifierProvider(
   //     create: (context) => GAuthService(),
