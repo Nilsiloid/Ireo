@@ -5,7 +5,7 @@ const pomodoroTotalTime = 10; // 25 * 60;
 const shortBreak = 3; // 5 * 60;
 const longBreak = 5; // 15 * 60;
 
-const pomodoroTotal = 4;
+const pomodorosEachSet = 4;
 
 const Map<PomodoroStatus, String> statusDescription = {
   PomodoroStatus.runningPomodoro:
@@ -22,10 +22,10 @@ const Map<PomodoroStatus, String> statusDescription = {
 
 const Map<PomodoroStatus, MaterialColor> statusColor = {
   PomodoroStatus.runningPomodoro: Colors.green,
-  PomodoroStatus.pausedPomodoro: Colors.red,
-  PomodoroStatus.runningShortBreak: Colors.orange,
-  PomodoroStatus.runningLongBreak: Colors.orange,
-  PomodoroStatus.pausedShortBreak: Colors.blueGrey,
-  PomodoroStatus.pausedLongBreak: Colors.blueGrey,
+  PomodoroStatus.pausedPomodoro: Colors.orange,
+  PomodoroStatus.runningShortBreak: Colors.green,
+  PomodoroStatus.runningLongBreak: Colors.green,
+  PomodoroStatus.pausedShortBreak: Colors.orange,
+  PomodoroStatus.pausedLongBreak: Colors.orange,
   PomodoroStatus.setFinished: Colors.yellow,
 };

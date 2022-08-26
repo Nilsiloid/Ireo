@@ -2,7 +2,6 @@
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:ireo/Pages/home.dart';
 import 'package:ireo/Pomodoro/constants.dart';
 import 'package:ireo/Pomodoro/pomodoro_icons.dart';
 import 'package:ireo/Utilities/routes.dart';
@@ -25,6 +24,7 @@ const _stop = "Stop";
 const _reset = "Reset";
 const _pauseBreak = "Pause Break";
 const _resumeBreak = "Resume Break";
+const _startBreak = 'Start Break';
 const _nextset = "Start next set";
 
 class _PomodoroState extends State<Pomodoro> {
@@ -36,6 +36,7 @@ class _PomodoroState extends State<Pomodoro> {
 
   Timer? _timer;
   int pomodoroNum = 0;
+  int setNum = 0;
 
   @override
   void dispose() {
@@ -93,12 +94,11 @@ class _PomodoroState extends State<Pomodoro> {
                   ),
                   progressColor: statusColor[pomodoroStatus],
                 ),
-                PomodoroIcons(sets: pomodoroTotal, completed: pomodoroNum),
+                PomodoroIcons(sets: pomodorosEachSet, completed: pomodoroNum),
                 SizedBox(
                   height: 10.0,
                 ),
                 Text(
-                  // "LOL",
                   statusDescription[pomodoroStatus]!,
                   style: TextStyle(color: Colors.white),
                 ),
@@ -110,7 +110,7 @@ class _PomodoroState extends State<Pomodoro> {
                     onTap: ((pomodoroStatus == PomodoroStatus.pausedPomodoro) ||
                             (pomodoroStatus == PomodoroStatus.runningPomodoro))
                         ? _resetPomodoroCounter
-                        : _resetBreakTimer(),
+                        : _resetBreakTimer,
                     text: 'Reset'),
               ],
             ))
@@ -155,6 +155,7 @@ class _PomodoroState extends State<Pomodoro> {
         totalTime = longBreak;
         break;
       case PomodoroStatus.setFinished:
+        setNum++;
         totalTime = pomodoroTotalTime;
         break;
     }
@@ -164,6 +165,7 @@ class _PomodoroState extends State<Pomodoro> {
   }
 
   _pomodoro() {
+    // debugPrint("$pomodoroStatus");
     switch (pomodoroStatus) {
       case PomodoroStatus.pausedPomodoro:
         _startPomodoroCounter();
@@ -184,7 +186,7 @@ class _PomodoroState extends State<Pomodoro> {
         _startBreakTimer();
         break;
       case PomodoroStatus.setFinished:
-        // setNum++;
+        setNum++;
         _startPomodoroCounter();
         break;
     }
@@ -209,23 +211,22 @@ class _PomodoroState extends State<Pomodoro> {
                   // play sound
                   pomodoroNum++,
                   _stopTimer(),
-                  // timer.cancel(),
-                  if (pomodoroNum % pomodoroTotal == 0)
+                  if (pomodoroNum % pomodorosEachSet == 0)
                     {
-                      pomodoroStatus = PomodoroStatus.pausedLongBreak,
                       setState(() {
+                        debugPrint("$pomodoroStatus");
+                        setNum++;
                         remainingTime = longBreak;
-                        button = _pauseBreak;
-                        _startBreakTimer();
+                        pomodoroStatus = PomodoroStatus.pausedLongBreak;
+                        button = _startBreak;
                       }),
                     }
                   else
                     {
-                      pomodoroStatus = PomodoroStatus.pausedShortBreak,
                       setState(() {
                         remainingTime = shortBreak;
-                        button = _pauseBreak;
-                        _startBreakTimer();
+                        pomodoroStatus = PomodoroStatus.pausedShortBreak;
+                        button = _startBreak;
                       }),
                     }
                 }
@@ -243,9 +244,6 @@ class _PomodoroState extends State<Pomodoro> {
   }
 
   _resetPomodoroCounter() {
-    // pomodoroNum = 0;
-    // pomodoroStatus = PomodoroStatus.pausedPomodoro;
-
     _stopTimer();
     _stopPomodoroCounter();
   }
@@ -263,11 +261,13 @@ class _PomodoroState extends State<Pomodoro> {
         ? PomodoroStatus.runningLongBreak
         : PomodoroStatus.runningShortBreak;
 
+    remainingTime = (pomodoroStatus == PomodoroStatus.runningLongBreak)
+        ? longBreak
+        : shortBreak;
+
     _stopTimer();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      debugPrint("remainingtime = $remainingTime");
       if (remainingTime > 0) {
-        // debugPrint("remainingtime = $remainingTime"),
         setState(() {
           remainingTime--;
           button = _pauseBreak;
@@ -275,12 +275,10 @@ class _PomodoroState extends State<Pomodoro> {
       } else {
         _soundForStartAndEnd();
         _stopTimer();
-        // timer.cancel();
         pomodoroStatus = PomodoroStatus.pausedPomodoro;
         setState(() {
           remainingTime = pomodoroTotalTime;
           button = _start;
-          _startPomodoroCounter();
         });
       }
     });
@@ -308,8 +306,10 @@ class _PomodoroState extends State<Pomodoro> {
         ? PomodoroStatus.pausedShortBreak
         : PomodoroStatus.pausedLongBreak;
     setState(() {
-      button = _start;
-      remainingTime = pomodoroTotalTime;
+      button = _startBreak;
+      remainingTime = (pomodoroStatus == PomodoroStatus.pausedLongBreak)
+          ? longBreak
+          : shortBreak;
     });
   }
 
@@ -321,7 +321,7 @@ class _PomodoroState extends State<Pomodoro> {
   }
 
   _soundForStartAndEnd() {
-    print("Played your mom pepega!");
+    debugPrint("Played your mom pepega!");
     // mediaplayer.play("sound.mp3");
   }
 }
