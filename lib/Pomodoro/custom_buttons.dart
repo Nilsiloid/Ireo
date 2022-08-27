@@ -11,9 +11,11 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ButtonTheme(
-      minWidth: 400,
+      minWidth: 300.0,
       child: ElevatedButton(
           onPressed: onTap,
+          style: ElevatedButton.styleFrom(
+              primary: Colors.black, minimumSize: Size(140, 30)),
           child: Text(
             text,
             style: TextStyle(fontSize: 15),

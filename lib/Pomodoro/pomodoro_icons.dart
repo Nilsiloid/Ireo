@@ -11,7 +11,7 @@ class PomodoroIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const iSize = 30.0;
+    const iSize = 35.0;
 
     final completedSets = Icon(
       // Icons.beenhere,

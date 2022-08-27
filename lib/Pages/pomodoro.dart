@@ -48,13 +48,13 @@ class _PomodoroState extends State<Pomodoro> {
   void initState() {
     super.initState();
 
-    //   mediaplayer.load('sound.mp3');
+    mediaplayer.load('timer.mp3');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[300],
+      backgroundColor: Colors.blue[600],
       body: SafeArea(
           child: Center(
         child: Column(
@@ -70,15 +70,17 @@ class _PomodoroState extends State<Pomodoro> {
                 child: Text("Back", style: TextStyle(fontSize: 15)),
               ),
               SizedBox(
-                width: 30,
+                width: 90,
               ),
-              Center(
-                child: Text(
-                  "Pomodoro Set: $pomodoroNum",
-                  style: TextStyle(fontSize: 25, color: Colors.black),
-                ),
-              )
             ]),
+            Text(
+              "Set: $setNum",
+              style: TextStyle(fontSize: 25, color: Colors.black),
+            ),
+            Text(
+              "Pomodoro Num: $pomodoroNum",
+              style: TextStyle(fontSize: 25, color: Colors.black),
+            ),
             Expanded(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +89,7 @@ class _PomodoroState extends State<Pomodoro> {
                   radius: 100.0,
                   lineWidth: 15.0,
                   percent: _percentageSetCompleted(),
-                  circularStrokeCap: CircularStrokeCap.round,
+                  circularStrokeCap: CircularStrokeCap.butt,
                   center: Text(
                     _secondstoFormattedString(remainingTime),
                     style: TextStyle(fontSize: 40, color: Colors.black),
@@ -100,7 +102,10 @@ class _PomodoroState extends State<Pomodoro> {
                 ),
                 Text(
                   statusDescription[pomodoroStatus]!,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10,
@@ -111,7 +116,8 @@ class _PomodoroState extends State<Pomodoro> {
                             (pomodoroStatus == PomodoroStatus.runningPomodoro))
                         ? _resetPomodoroCounter
                         : _resetBreakTimer,
-                    text: 'Reset'),
+                    text: 'Reset Timer'),
+                CustomButton(onTap: _resetPomodoro, text: 'Reset Pomodoro'),
               ],
             ))
           ],
@@ -156,6 +162,7 @@ class _PomodoroState extends State<Pomodoro> {
         break;
       case PomodoroStatus.setFinished:
         setNum++;
+        pomodoroNum = 0;
         totalTime = pomodoroTotalTime;
         break;
     }
@@ -165,7 +172,6 @@ class _PomodoroState extends State<Pomodoro> {
   }
 
   _pomodoro() {
-    // debugPrint("$pomodoroStatus");
     switch (pomodoroStatus) {
       case PomodoroStatus.pausedPomodoro:
         _startPomodoroCounter();
@@ -208,7 +214,7 @@ class _PomodoroState extends State<Pomodoro> {
                 }
               else
                 {
-                  // play sound
+                  _soundForStartAndEnd(),
                   pomodoroNum++,
                   _stopTimer(),
                   if (pomodoroNum % pomodorosEachSet == 0)
@@ -275,10 +281,16 @@ class _PomodoroState extends State<Pomodoro> {
       } else {
         _soundForStartAndEnd();
         _stopTimer();
-        pomodoroStatus = PomodoroStatus.pausedPomodoro;
+        if (pomodoroNum % pomodorosEachSet == 0) {
+          pomodoroStatus = PomodoroStatus.setFinished;
+        } else {
+          pomodoroStatus = PomodoroStatus.pausedPomodoro;
+        }
         setState(() {
           remainingTime = pomodoroTotalTime;
-          button = _start;
+          button = (pomodoroStatus == PomodoroStatus.setFinished)
+              ? _nextset
+              : _start;
         });
       }
     });
@@ -320,8 +332,18 @@ class _PomodoroState extends State<Pomodoro> {
     }
   }
 
+  _resetPomodoro() {
+    _stopTimer();
+    setState(() {
+      button = _start;
+      pomodoroStatus = PomodoroStatus.pausedPomodoro;
+      remainingTime = pomodoroTotalTime;
+      setNum = 0;
+      pomodoroNum = 0;
+    });
+  }
+
   _soundForStartAndEnd() {
-    debugPrint("Played your mom pepega!");
-    // mediaplayer.play("sound.mp3");
+    mediaplayer.play('timer.mp3');
   }
 }

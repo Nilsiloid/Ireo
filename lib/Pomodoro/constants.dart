@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ireo/models/pomodoro_status.dart';
 
-const pomodoroTotalTime = 10; // 25 * 60;
-const shortBreak = 3; // 5 * 60;
-const longBreak = 5; // 15 * 60;
+const pomodoroTotalTime = 25 * 60;
+const shortBreak = 5 * 60;
+const longBreak = 15 * 60;
 
 const pomodorosEachSet = 4;
 
