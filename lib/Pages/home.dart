@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element, unused_import
 
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,21 +38,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        drawer: Drawer(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-                onPressed: () {
-                  context.read<AuthenticationService>().signOut();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AuthWrapper(index: 0)));
-                },
-                child: Text("Sign Out"))
-          ],
-        )),
         appBar: AppBar(
           elevation: 0.0,
           backgroundColor: Theme.of(context).colorScheme.secondary,
