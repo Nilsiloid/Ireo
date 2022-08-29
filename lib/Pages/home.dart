@@ -3,8 +3,6 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:ireo/Authentication/email_auth.dart';
-import 'package:ireo/Pomodoro/pomodoro_main.dart';
 import 'package:ireo/Utilities/routes.dart';
 import 'package:ireo/main.dart';
 import 'package:provider/provider.dart';

@@ -344,6 +344,6 @@ class _PomodoroState extends State<Pomodoro> {
   }
 
   _soundForStartAndEnd() {
-    mediaplayer.play('timer.mp3');
+    // mediaplayer.play('timer.mp3');
   }
 }
