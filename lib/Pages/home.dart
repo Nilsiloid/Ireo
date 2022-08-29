@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element, unused_import, sized_box_for_whitespace
 
-// import 'package:flutter/cupertino.dart';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ireo/Authentication/email_auth.dart';
 import 'package:ireo/Pomodoro/pomodoro_main.dart';
 import 'package:ireo/Utilities/routes.dart';
