@@ -56,55 +56,56 @@ class Home extends StatelessWidget {
           )),
         ),
         Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 150.0,
-              ),
-              Container(
-                height: 100.0,
-                width: 350.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.TasksPath);
-                  },
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.blueGrey,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0))),
-                  child: Center(
-                    child: Text(
-                      "Pending Tasks",
-                      style: TextStyle(fontSize: 35.0),
+          child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            // padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+            child: Column(
+              children: [
+                Container(
+                  height: 100.0,
+                  width: 350.0,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.TasksPath);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueGrey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0))),
+                    child: Center(
+                      child: Text(
+                        "Pending Tasks",
+                        style: TextStyle(fontSize: 35.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 100.0,
-              ),
-              Container(
-                height: 100.0,
-                width: 350.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.PomodoroPath);
-                  },
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.blueGrey,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0))),
-                  child: Center(
-                    child: Text(
-                      "Pomodoro",
-                      style: TextStyle(fontSize: 35.0),
+                SizedBox(
+                  height: 100.0,
+                ),
+                Container(
+                  height: 100.0,
+                  width: 350.0,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.PomodoroPath);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueGrey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0))),
+                    child: Center(
+                      child: Text(
+                        "Pomodoro",
+                        style: TextStyle(fontSize: 35.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        )
       ]),
     );
   }

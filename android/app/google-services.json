@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "830063634699",
+    "project_id": "ireo-e088d",
+    "storage_bucket": "ireo-e088d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830063634699:android:75855e56c22dd4249d1a0e",
+        "android_client_info": {
+          "package_name": "com.example.ireo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830063634699-gcdf8p7mmqr76q7e2i6tj8pne4nsjevf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ireo",
+            "certificate_hash": "6c2493a798b097a53836b1647e973079177a8d8a"
+          }
+        },
+        {
+          "client_id": "830063634699-tkuaurdic5v671mjji7tmlj12llhhbu6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRaynEeXN7mF-xn3P2zI2HyCbtbcOHDjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830063634699-tkuaurdic5v671mjji7tmlj12llhhbu6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
