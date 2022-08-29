@@ -9,9 +9,9 @@ import 'package:ireo/Authentication/sign_in.dart';
 import 'package:ireo/Pages/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ireo/Pages/pomodoro.dart';
-import 'package:ireo/Pages/tasks.dart';
 import 'package:ireo/Pages/wrapper.dart';
 import 'package:ireo/Pomodoro/pomodoro_main.dart';
+import 'package:ireo/Tasks/listtasks.dart';
 import 'package:provider/provider.dart';
 
 import 'Pages/home.dart';
@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
             ),
             initialRoute: "/",
             routes: {
-              "/": (context) => Tasks(),
+              "/": (context) => Home(),
+              Routes.TasksPath: (context) => TasksList(),
               Routes.WordlePath: (context) => GameScreen(),
               Routes.HomePath: (context) => Home(),
               Routes.LoginPath: (context) => SignIn(),

@@ -1,7 +1,10 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element, unused_import
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element, unused_import, sized_box_for_whitespace
 
 // import 'package:flutter/cupertino.dart';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ireo/Authentication/email_auth.dart';
 import 'package:ireo/Pomodoro/pomodoro_main.dart';
 import 'package:ireo/Utilities/routes.dart';
@@ -11,127 +14,102 @@ import 'package:provider/provider.dart';
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
-  Widget _tasks(
-      {required Color color, required String title, required String subtitle}) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
-      padding: EdgeInsets.only(left: 20),
-      height: 80,
-      width: 200,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(title,
-                style: TextStyle(color: Colors.white, fontSize: 17.0)),
-          ),
-          SizedBox(
-            height: 2.0,
-          ),
-          Text(subtitle, style: TextStyle(color: Colors.white, fontSize: 12.0)),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextButton(
-              onPressed: () {
-                context.read<AuthenticationService>().signOut();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AuthWrapper(index: 0)));
-              },
-              child: Text("Sign Out"))
-        ],
-      )),
       appBar: AppBar(
+        actions: [
+          Center(
+            child: Text(
+              "Sign Out",
+              style: TextStyle(fontSize: 12.0),
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.LoginPath);
+              },
+              icon: Icon(
+                Icons.logout_rounded,
+                size: 25.0,
+              ))
+        ],
         elevation: 0.0,
         backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Text(
-          "IIIT-B",
-          style: TextStyle(fontSize: 15.0),
+          "Welcome!",
+          style: TextStyle(fontSize: 30.0),
         ),
         centerTitle: true,
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
+      body: Stack(children: [
+        Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Colors.blue,
+              Color(0xff0072bb),
+              Color(0xff7e9aab),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.1, 0.5, 0.9],
+          )),
+        ),
+        Center(
           child: Column(
             children: [
-              Container(
-                height: 250,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30, left: 30),
-                      child: Text(
-                        "Tasks",
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 30, left: 30),
-                        child: Row(children: [
-                          _tasks(
-                              color: Theme.of(context).colorScheme.secondary,
-                              title: "Important",
-                              subtitle: "Maths Assignment"),
-                          _tasks(
-                              color: Theme.of(context).colorScheme.secondary,
-                              title: "Urgent",
-                              subtitle: "Physics Assignment"),
-                        ]),
-                      ),
-                    ),
-                  ],
-                ),
+              SizedBox(
+                height: 150.0,
               ),
               Container(
-                  height: 50,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      Navigator.pushNamed(context, Routes.PomodoroPath);
-                    },
+                height: 100.0,
+                width: 350.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.TasksPath);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueGrey,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0))),
+                  child: Center(
                     child: Text(
-                      "Pomodoro Study",
-                      style: TextStyle(fontSize: 15),
+                      "Pending Tasks",
+                      style: TextStyle(fontSize: 35.0),
                     ),
-                  )),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 100.0,
+              ),
+              Container(
+                height: 100.0,
+                width: 350.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.PomodoroPath);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueGrey,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0))),
+                  child: Center(
+                    child: Text(
+                      "Pomodoro",
+                      style: TextStyle(fontSize: 35.0),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ),
+      ]),
     );
   }
 }
